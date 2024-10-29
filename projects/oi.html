@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom Meal Plan Survey</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+      form {
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      label {
+        display: block;
+        margin: 8px 0 4px;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Custom Meal Plan Survey</h1>
+
+    <form id="mealPlanForm">
+      <!-- Macro Knowledge -->
+      <label>Do you know your current macros?</label>
+      <input type="radio" name="macroKnowledge" value="yes" required /> Yes
+      <input type="radio" name="macroKnowledge" value="no" /> No
+
+      <!-- If yes, capture macros -->
+      <h2>Your Macros</h2>
+      <label>Calories:</label>
+      <input type="number" name="calories" required />
+      <label>Protein (g):</label>
+      <input type="number" name="protein" required />
+      <label>Carbs (g):</label>
+      <input type="number" name="carbs" required />
+      <label>Fats (g):</label>
+      <input type="number" name="fats" required />
+
+      <!-- If no, capture user information -->
+      <h2>Your Information</h2>
+      <label>Age:</label>
+      <input type="number" name="age" required />
+      <label>Gender:</label>
+      <select name="gender" required>
+        <option value="">Select</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+      <label>Height:</label>
+      <input type="number" name="height" required />
+      <select name="heightUnit" required>
+        <option value="cm">cm</option>
+        <option value="ft">ft</option>
+      </select>
+      <label>Weight:</label>
+      <input type="number" name="weight" required />
+      <select name="weightUnit" required>
+        <option value="kg">kg</option>
+        <option value="lbs">lbs</option>
+      </select>
+      <label>Activity Level (1-6):</label>
+      <input type="number" name="activityLevel" min="1" max="6" required />
+      <label>Goal (1-5):</label>
+      <input type="number" name="goal" min="1" max="5" required />
+
+      <!-- More About You -->
+      <h2>More About You</h2>
+      <label>Country of Residence:</label>
+      <select name="country" required>
+        <option value="">Select</option>
+        <option value="Australia">Australia</option>
+        <option value="Canada">Canada</option>
+        <option value="United States">United States</option>
+        <option value="United Kingdom">United Kingdom</option>
+        <option value="New Zealand">New Zealand</option>
+      </select>
+      <label>Main Grocery Shopping Chain:</label>
+      <select name="groceryChain" required>
+        <option value="">Select</option>
+        <option value="Woolworths">Woolworths</option>
+        <option value="Coles">Coles</option>
+        <option value="IGA">IGA</option>
+      </select>
+      <label>Select Meals per Day:</label>
+      <label
+        ><input type="checkbox" name="meals" value="breakfast" />
+        Breakfast</label
+      >
+      <label><input type="checkbox" name="meals" value="lunch" /> Lunch</label>
+      <label
+        ><input type="checkbox" name="meals" value="dinner" /> Dinner</label
+      >
+      <label
+        ><input type="checkbox" name="meals" value="dessert" /> Dessert</label
+      >
+      <label>Do you want snacks between meals?</label>
+      <input type="radio" name="snacks" value="yes" /> Yes
+      <input type="radio" name="snacks" value="no" /> No
+
+      <!-- Getting to Know What You Love -->
+      <h2>What Do You Love?</h2>
+      <div id="favouriteFoods">
+        <input
+          type="text"
+          id="favouriteBreakfast"
+          placeholder="Favourite Breakfast Foods"
+          onkeypress="addFood(event, 'favouriteBreakfastList', this, 'favouriteBreakfastAnswer')"
+        />
+        <div id="favouriteBreakfastAnswer"></div>
+        <ul id="favouriteBreakfastList"></ul>
+
+        <input
+          type="text"
+          id="favouriteLunch"
+          placeholder="Favourite Lunch Foods"
+          onkeypress="addFood(event, 'favouriteLunchList', this, 'favouriteLunchAnswer')"
+        />
+        <div id="favouriteLunchAnswer"></div>
+        <ul id="favouriteLunchList"></ul>
+
+        <input
+          type="text"
+          id="favouriteDinner"
+          placeholder="Favourite Dinner Foods"
+          onkeypress="addFood(event, 'favouriteDinnerList', this, 'favouriteDinnerAnswer')"
+        />
+        <div id="favouriteDinnerAnswer"></div>
+        <ul id="favouriteDinnerList"></ul>
+
+        <input
+          type="text"
+          id="favouriteDesserts"
+          placeholder="Favourite Desserts"
+          onkeypress="addFood(event, 'favouriteDessertsList', this, 'favouriteDessertsAnswer')"
+        />
+        <div id="favouriteDessertsAnswer"></div>
+        <ul id="favouriteDessertsList"></ul>
+      </div>
+
+      <h2>What Are Your Dislikes?</h2>
+      <div id="dislikesSection">
+        <input
+          type="text"
+          id="dislikesInput"
+          placeholder="What Are Your Dislikes?"
+          onkeypress="addFood(event, 'dislikesList', this, 'dislikesAnswer')"
+        />
+        <div id="dislikesAnswer"></div>
+        <ul id="dislikesList"></ul>
+      </div>
+
+      <h2>What Can't You Have?</h2>
+      <div id="cantHaveSection">
+        <input
+          type="text"
+          id="cantHaveInput"
+          placeholder="What Can't You Have?"
+          onkeypress="addFood(event, 'cantHaveList', this, 'cantHaveAnswer')"
+        />
+        <div id="cantHaveAnswer"></div>
+        <ul id="cantHaveList"></ul>
+      </div>
+
+      <script>
+        function addFood(event, listId, input, answerId) {
+          if (event.key === "Enter" && input.value.trim()) {
+            const list = document.getElementById(listId);
+            const listItem = document.createElement("li");
+            listItem.textContent = input.value.trim();
+
+            const removeButton = document.createElement("button");
+            removeButton.textContent = "Remove";
+            removeButton.onclick = function () {
+              list.removeChild(listItem);
+              updateAnswerDisplay(answerId); // Update answer display when item is removed
+            };
+
+            listItem.appendChild(removeButton);
+            list.appendChild(listItem);
+            input.value = ""; // Clear the input field after adding
+
+            updateAnswerDisplay(answerId); // Update answer display after adding
+          }
+        }
+
+        function updateAnswerDisplay(answerId) {
+          const answerDiv = document.getElementById(answerId);
+          const list = document.getElementById(
+            answerId.replace("Answer", "List")
+          ); // Get the corresponding list
+          const items = Array.from(list.children).map(
+            (item) => item.firstChild.textContent
+          );
+
+          // Display current answers
+          answerDiv.innerHTML = items.length
+            ? `Your answers: ${items.join(", ")} `
+            : ""; // Clear previous answers
+
+          // Append 'Remove' button for all items below the answers
+          answerDiv.innerHTML += items
+            .map(
+              (item, index) =>
+                `<span>${item} <button onclick="removeItem('${item}', '${answerId}', '${listId}')">Remove</button></span>`
+            )
+            .join(", ");
+        }
+
+        function removeItem(item, answerId, listId) {
+          const list = document.getElementById(listId);
+          const answerDiv = document.getElementById(answerId);
+
+          // Remove the item from the list
+          Array.from(list.children).forEach((listItem) => {
+            if (listItem.textContent.includes(item)) {
+              list.removeChild(listItem);
+            }
+          });
+
+          updateAnswerDisplay(answerId); // Update the display after removal
+        }
+      </script>
+
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
